@@ -1,0 +1,27 @@
+module modisco2metrics;
+create OUT : METRICS from IN : Java;
+
+rule C2C { --class to class
+	from e : Java!ClassDeclaration
+	to out : METRICS!Class (
+		name <- e.name,
+		LOC <- e.bodyDeclarations->select(c | c.oclIsTypeOf(Java!FieldDeclaration))->size() +
+			e.bodyDeclarations
+				->reject(a | a.oclIsUndefined())
+				->select(c | c.oclIsTypeOf(Java!ConstructorDeclaration))
+				->collect(e | 
+					if not e.body.oclIsUndefined()
+					then
+						if e.body.statements->notEmpty()
+						then
+							e.body.statements->size()
+						else
+							0
+						endif
+					else
+						0
+					endif
+				)
+				->sum()
+	)
+}

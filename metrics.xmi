@@ -1,45 +1,78 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:metrics="http://www.example.org/metrics">
-  <metrics:Class name="ClientController" LOC="48"/>
-  <metrics:Class name="ConnectThread" LOC="3"/>
-  <metrics:Class name="BackgroundLobbyTask" LOC="1"/>
-  <metrics:Class name="ServerController" LOC="4"/>
-  <metrics:Class name="Event" LOC="32"/>
-  <metrics:Class name="Board" LOC="49"/>
-  <metrics:Class name="IllegalMoveException" LOC="1"/>
-  <metrics:Class name="Mark" LOC="12"/>
-  <metrics:Class name="Server" LOC="21"/>
-  <metrics:Class name="Game" LOC="53"/>
-  <metrics:Class name="InvalidPlayerCountException" LOC="1"/>
-  <metrics:Class name="ClientHandler" LOC="46"/>
-  <metrics:Class name="Commander" LOC="14"/>
-  <metrics:Class name="Client" LOC="94"/>
-  <metrics:Class name="ComputerPlayerThread" LOC="18"/>
-  <metrics:Class name="HumanPlayer" LOC="3"/>
-  <metrics:Class name="Player" LOC="6"/>
-  <metrics:Class name="ComputerPlayer" LOC="5"/>
-  <metrics:Class name="GameRequestList" LOC="8"/>
-  <metrics:Class name="ChallengeRequestList" LOC="19"/>
-  <metrics:Class name="SmartStrategy" LOC="25"/>
-  <metrics:Class name="n00bStrategy" LOC="9"/>
-  <metrics:Class name="BoardTest" LOC="108"/>
-  <metrics:Class name="ChallengeRequestListTest" LOC="39"/>
-  <metrics:Class name="GameTest" LOC="2"/>
-  <metrics:Class name="NetworkTestCase" LOC="8"/>
-  <metrics:Class name="EventTest" LOC="3"/>
-  <metrics:Class name="GameRequestListTest" LOC="21"/>
-  <metrics:Class name="MarkTest" LOC="5"/>
-  <metrics:Class name="PlayerView" LOC="34"/>
-  <metrics:Class name="ServerView" LOC="2"/>
-  <metrics:Class name="View" LOC="9"/>
-  <metrics:Class name="ConnectView" LOC="49"/>
-  <metrics:Class name="GameView" LOC="94"/>
-  <metrics:Class name="LobbyView" LOC="62"/>
-  <metrics:Class name="Color" LOC="5"/>
+  <metrics:File LOC="101" name="ClientController.java"/>
+  <metrics:File LOC="15" name="ServerController.java"/>
+  <metrics:File LOC="45" name="Event.java"/>
+  <metrics:File LOC="97" name="Board.java"/>
+  <metrics:File LOC="24" name="Mark.java"/>
+  <metrics:File LOC="54" name="Server.java"/>
+  <metrics:File LOC="97" name="Game.java"/>
+  <metrics:File LOC="86" name="ClientHandler.java"/>
+  <metrics:File LOC="34" name="Protocol.java"/>
+  <metrics:File LOC="36" name="Commander.java"/>
+  <metrics:File LOC="173" name="Client.java"/>
+  <metrics:File LOC="40" name="ComputerPlayerThread.java"/>
+  <metrics:File LOC="15" name="HumanPlayer.java"/>
+  <metrics:File LOC="20" name="Player.java"/>
+  <metrics:File LOC="18" name="ComputerPlayer.java"/>
+  <metrics:File LOC="25" name="GameRequestList.java"/>
+  <metrics:File LOC="46" name="ChallengeRequestList.java"/>
+  <metrics:File LOC="41" name="SmartStrategy.java"/>
+  <metrics:File LOC="8" name="Strategy.java"/>
+  <metrics:File LOC="19" name="n00bStrategy.java"/>
+  <metrics:File LOC="134" name="BoardTest.java"/>
+  <metrics:File LOC="55" name="ChallengeRequestListTest.java"/>
+  <metrics:File LOC="14" name="GameTest.java"/>
+  <metrics:File LOC="19" name="NetworkTestCase.java"/>
+  <metrics:File LOC="17" name="EventTest.java"/>
+  <metrics:File LOC="32" name="GameRequestListTest.java"/>
+  <metrics:File LOC="16" name="MarkTest.java"/>
+  <metrics:File LOC="67" name="PlayerView.java"/>
+  <metrics:File LOC="17" name="ServerView.java"/>
+  <metrics:File LOC="27" name="View.java"/>
+  <metrics:File LOC="77" name="ConnectView.java"/>
+  <metrics:File LOC="140" name="GameView.java"/>
+  <metrics:File LOC="90" name="LobbyView.java"/>
+  <metrics:Class name="ClientController"/>
+  <metrics:Class name="ConnectThread"/>
+  <metrics:Class name="BackgroundLobbyTask"/>
+  <metrics:Class name="ServerController"/>
+  <metrics:Class name="Event"/>
+  <metrics:Class name="Board"/>
+  <metrics:Class name="IllegalMoveException"/>
+  <metrics:Class name="Mark"/>
+  <metrics:Class name="Server"/>
+  <metrics:Class name="Game"/>
+  <metrics:Class name="InvalidPlayerCountException"/>
+  <metrics:Class name="ClientHandler"/>
+  <metrics:Class name="Commander"/>
+  <metrics:Class name="Client"/>
+  <metrics:Class name="ComputerPlayerThread"/>
+  <metrics:Class name="HumanPlayer"/>
+  <metrics:Class name="Player"/>
+  <metrics:Class name="ComputerPlayer"/>
+  <metrics:Class name="GameRequestList"/>
+  <metrics:Class name="ChallengeRequestList"/>
+  <metrics:Class name="SmartStrategy"/>
+  <metrics:Class name="n00bStrategy"/>
+  <metrics:Class name="BoardTest"/>
+  <metrics:Class name="ChallengeRequestListTest"/>
+  <metrics:Class name="GameTest"/>
+  <metrics:Class name="NetworkTestCase"/>
+  <metrics:Class name="EventTest"/>
+  <metrics:Class name="GameRequestListTest"/>
+  <metrics:Class name="MarkTest"/>
+  <metrics:Class name="PlayerView"/>
+  <metrics:Class name="ServerView"/>
+  <metrics:Class name="View"/>
+  <metrics:Class name="ConnectView"/>
+  <metrics:Class name="GameView"/>
+  <metrics:Class name="LobbyView"/>
+  <metrics:Class name="Color"/>
   <metrics:Class name="Container"/>
   <metrics:Class name="Component"/>
   <metrics:Class name="AWTEvent"/>
-  <metrics:Class name="BorderLayout" LOC="5"/>
+  <metrics:Class name="BorderLayout"/>
   <metrics:Class name="Rectangle"/>
   <metrics:Class name="Window"/>
   <metrics:Class name="Toolkit"/>
@@ -48,7 +81,7 @@
   <metrics:Class name="GridLayout"/>
   <metrics:Class name="Dimension"/>
   <metrics:Class name="KeyAdapter"/>
-  <metrics:Class name="KeyEvent" LOC="1"/>
+  <metrics:Class name="KeyEvent"/>
   <metrics:Class name="InputEvent"/>
   <metrics:Class name="ComponentEvent"/>
   <metrics:Class name="ActionEvent"/>
@@ -76,7 +109,7 @@
   <metrics:Class name="NumberFormatException"/>
   <metrics:Class name="IllegalArgumentException"/>
   <metrics:Class name="RuntimeException"/>
-  <metrics:Class name="System" LOC="1"/>
+  <metrics:Class name="System"/>
   <metrics:Class name="IndexOutOfBoundsException"/>
   <metrics:Class name="ArrayIndexOutOfBoundsException"/>
   <metrics:Class name="Character"/>
@@ -120,12 +153,12 @@
   <metrics:Class name="JScrollPane"/>
   <metrics:Class name="JTextArea"/>
   <metrics:Class name="JTextField"/>
-  <metrics:Class name="JFrame" LOC="1"/>
-  <metrics:Class name="JOptionPane" LOC="3"/>
+  <metrics:Class name="JFrame"/>
+  <metrics:Class name="JOptionPane"/>
   <metrics:Class name="JSlider"/>
   <metrics:Class name="JComboBox"/>
   <metrics:Class name="JTextComponent"/>
-  <metrics:Class name="DefaultCaret" LOC="1"/>
+  <metrics:Class name="DefaultCaret"/>
   <metrics:Class name="EmptyBorder"/>
   <metrics:Class name="AbstractBorder"/>
   <metrics:Class name="TestCase"/>

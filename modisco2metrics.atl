@@ -1,19 +1,61 @@
 module modisco2metrics;
 create OUT : METRICS from IN : Java;
 
-rule C2C { --class to class
-	from c : Java!ClassDeclaration
-	to out : METRICS!Class (
-		name <- c.name,
-		LOC <- c.bodyDeclarations->select(b | b.oclIsTypeOf(Java!FieldDeclaration))->size() +
-			thisModule.countStatements(c, Java!ConstructorDeclaration) +
-			thisModule.countStatements(c, Java!MethodDeclaration)
+rule F2F { --file to file
+	from f : Java!CompilationUnit
+	to out : METRICS!File (
+		name <- f.name,
+		LOC <- f.types->collect(c |
+			Sequence{
+				thisModule.countPackages(f),
+				thisModule.countFields(c),
+				thisModule.countStatements(c, Java!ConstructorDeclaration),
+				thisModule.countStatements(c, Java!MethodDeclaration), 
+				thisModule.countImports(f),
+				2
+			})->flatten()->sum()
+			
 	)
 }
 
+rule C2C { --class to class
+	from c : Java!ClassDeclaration
+	to out : METRICS!Class (
+		name <- c.name	
+	)
+}
+
+helper def: countFields(c: Java!ClassDeclaration) : Integer = 
+	c.bodyDeclarations->select(b | b.oclIsTypeOf(Java!FieldDeclaration))->size();
+
 helper def: countStatements(c: Java!ClassDeclaration, type: OclType) : Integer = 
 	c.bodyDeclarations
-		->select(c | c.oclIsTypeOf(type))
-		->reject(d | d.body.oclIsUndefined())
-		->collect(f | f.body.statements->size())
-		->append(0)->sum();
+		->select(b | b.oclIsTypeOf(type))
+		->reject(b | b.body.oclIsUndefined())
+		->collect(b | b.body.statements->size())
+		->append(
+			c.bodyDeclarations
+				->select(b | b.oclIsTypeOf(type))
+				->reject(b | b.body.oclIsUndefined())
+				->size()*2 --Add the number of declarations of the specific type
+		)->append(
+			c.bodyDeclarations
+				->select(b | b.oclIsTypeOf(type))
+				->select(b | b.body.oclIsUndefined())
+				->size() --Add the number of declarations of the specific type
+		)->sum();
+
+helper def: countImports(c: Java!CompilationUnit) : Integer = 
+	c.imports->size();
+
+helper def: countPackages(c: Java!CompilationUnit) : Integer = 
+	if c.package->oclIsUndefined()
+	then
+		0
+	else
+		1
+	endif;
+
+
+
+

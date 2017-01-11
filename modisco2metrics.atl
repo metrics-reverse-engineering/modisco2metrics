@@ -7,11 +7,12 @@ rule F2F { --file to file
 		name <- f.name,
 		LOC <- f.types->collect(c |
 			Sequence{
-				thisModule.countPackages(f),
-				thisModule.countFields(c),
-				thisModule.countStatements(c, Java!ConstructorDeclaration),
-				thisModule.countStatements(c, Java!MethodDeclaration), 
-				thisModule.countImports(f),
+				--thisModule.countPackages(f),
+				--thisModule.countFields(c),
+				--thisModule.countStatements(c, Java!ConstructorDeclaration),
+				thisModule.countStatements(c, Java!MethodDeclaration),
+				--thisModule.countImports(f),
+				--thisModule.countInnerClasses(c),
 				2
 			})->flatten()->sum()
 			
@@ -28,22 +29,99 @@ rule C2C { --class to class
 helper def: countFields(c: Java!ClassDeclaration) : Integer = 
 	c.bodyDeclarations->select(b | b.oclIsTypeOf(Java!FieldDeclaration))->size();
 
-helper def: countStatements(c: Java!ClassDeclaration, type: OclType) : Integer = 
+helper def: countStatements(c: Java!Body, type: OclType) : Integer = 
 	c.bodyDeclarations
 		->select(b | b.oclIsTypeOf(type))
+		->select(b | b.name = 'actionPerformed')
 		->reject(b | b.body.oclIsUndefined())
-		->collect(b | b.body.statements->size())
+		
+		->collect(b | thisModule.countStatementsRecursive(b.body))
 		->append(
 			c.bodyDeclarations
 				->select(b | b.oclIsTypeOf(type))
+				->select(b | b.name = 'actionPerformed')
 				->reject(b | b.body.oclIsUndefined())
 				->size()*2 --Add the number of declarations of the specific type
 		)->append(
 			c.bodyDeclarations
 				->select(b | b.oclIsTypeOf(type))
+				->select(b | b.name = 'actionPerformed')
 				->select(b | b.body.oclIsUndefined())
 				->size() --Add the number of declarations of the specific type
+		)->append(
+			c.bodyDeclarations
+				->select(b | b.oclIsTypeOf(type))
+				->select(b | b.name = 'actionPerformed')
+				->collect(b | b.annotations->size())
+				->flatten()->append(0)->sum()
 		)->sum();
+
+helper def: countStatementsRecursive(b: Java!Block) : Integer =
+	if b.statements->size() = 0
+	then
+		0
+	else
+		b.statements->collect(s |
+			--If
+			if s.oclIsTypeOf(Java!IfStatement)
+			then
+				thisModule.countIfThenElseIfElse(s) + 1
+			else
+			-- For/While
+			if s.oclIsTypeOf(Java!ForStatement) or s.oclIsTypeOf(Java!EnhancedForStatement) or s.oclIsTypeOf(Java!WhileStatement) or s.oclIsTypeOf(Java!SynchronizedStatement) 
+			then
+				2 + thisModule.countStatementsRecursive(s.body)
+			else
+			-- Try
+			if s.oclIsTypeOf(Java!TryStatement)
+			then
+				1 + thisModule.countStatementsRecursive(s.body) + 
+				s.catchClauses->collect(cc | thisModule.countStatementsRecursive(cc.body) +
+				if cc.body.statements->size() = 0
+				then --Empty catch clause
+					1
+				else --Non-empty catch clause
+					2
+				endif
+				)->sum()
+			else
+			-- Switch
+			if s.oclIsTypeOf(Java!SwitchStatement)
+			then
+				1 + thisModule.countStatementsRecursive(s)
+			else
+				1
+			endif
+			endif
+			endif
+			endif
+		)->sum()
+	endif;
+
+helper def: countIfThenElseIfElse(i: Java!IfStatement) : Integer = 
+	1 + thisModule.countStatementsRecursive(i.thenStatement) + -- if
+	if i.elseStatement.oclIsTypeOf(Java!IfStatement) 
+	then -- else if
+		thisModule.countIfThenElseIfElse(i.elseStatement)
+	else -- else
+		if not i.elseStatement.oclIsUndefined()
+		then
+			1 + thisModule.countStatementsRecursive(i.elseStatement)
+		else -- if without else
+			0
+		endif
+	endif;
+
+helper def: countInnerClasses(c: Java!ClassDeclaration) : Integer = 
+	c.bodyDeclarations
+		->select(d | d.oclIsTypeOf(Java!ClassDeclaration))
+		->collect(d |
+			Sequence{
+				thisModule.countFields(d),
+				thisModule.countStatements(d, Java!ConstructorDeclaration),
+				thisModule.countStatements(d, Java!MethodDeclaration),
+				2
+			})->append(0)->flatten()->sum();
 
 helper def: countImports(c: Java!CompilationUnit) : Integer = 
 	c.imports->size();

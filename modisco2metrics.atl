@@ -7,24 +7,43 @@ rule F2F { --file to file
 		name <- f.name,
 		LOC <- f.types->collect(c |
 			Sequence{
-				--thisModule.countPackages(f),
-				--thisModule.countFields(c),
-				--thisModule.countStatements(c, Java!ConstructorDeclaration),
+				thisModule.countPackages(f),
+				thisModule.countFields(c),
+				thisModule.countStatements(c, Java!ConstructorDeclaration),
 				thisModule.countStatements(c, Java!MethodDeclaration),
-				--thisModule.countImports(f),
-				--thisModule.countInnerClasses(c),
+				thisModule.countImports(f),
+				thisModule.countInnerClasses(c),
 				2
-			})->flatten()->sum()
-			
+			})->flatten()->sum(),
+		class <- f.types
 	)
 }
 
 rule C2C { --class to class
 	from c : Java!ClassDeclaration
 	to out : METRICS!Class (
-		name <- c.name	
+		name <- c.name,
+		methods <- c.bodyDeclarations->select(b | b.oclIsTypeOf(Java!MethodDeclaration)),
+		attributes <- c.bodyDeclarations->select(b | b.oclIsTypeOf(Java!FieldDeclaration))
 	)
 }
+
+rule M2M { --method to method
+	from m : Java!MethodDeclaration
+	to out : METRICS!Method (
+		name <- m.name
+	)
+}
+
+rule A2A {
+	from f : Java!FieldDeclaration
+	to out : METRICS!Attribute (
+		name <- f.fragments->first().name
+	)
+}
+
+helper def: testName() : String = 
+	'run';
 
 helper def: countFields(c: Java!ClassDeclaration) : Integer = 
 	c.bodyDeclarations->select(b | b.oclIsTypeOf(Java!FieldDeclaration))->size();
@@ -32,26 +51,25 @@ helper def: countFields(c: Java!ClassDeclaration) : Integer =
 helper def: countStatements(c: Java!Body, type: OclType) : Integer = 
 	c.bodyDeclarations
 		->select(b | b.oclIsTypeOf(type))
-		->select(b | b.name = 'actionPerformed')
 		->reject(b | b.body.oclIsUndefined())
-		
+		-->select(b | b.name = thisModule.testName())
 		->collect(b | thisModule.countStatementsRecursive(b.body))
 		->append(
 			c.bodyDeclarations
 				->select(b | b.oclIsTypeOf(type))
-				->select(b | b.name = 'actionPerformed')
+		--		->select(b | b.name = thisModule.testName())
 				->reject(b | b.body.oclIsUndefined())
 				->size()*2 --Add the number of declarations of the specific type
 		)->append(
 			c.bodyDeclarations
 				->select(b | b.oclIsTypeOf(type))
-				->select(b | b.name = 'actionPerformed')
+		--		->select(b | b.name = thisModule.testName())
 				->select(b | b.body.oclIsUndefined())
 				->size() --Add the number of declarations of the specific type
 		)->append(
 			c.bodyDeclarations
 				->select(b | b.oclIsTypeOf(type))
-				->select(b | b.name = 'actionPerformed')
+		--		->select(b | b.name = thisModule.testName())
 				->collect(b | b.annotations->size())
 				->flatten()->append(0)->sum()
 		)->sum();
@@ -75,20 +93,20 @@ helper def: countStatementsRecursive(b: Java!Block) : Integer =
 			-- Try
 			if s.oclIsTypeOf(Java!TryStatement)
 			then
-				1 + thisModule.countStatementsRecursive(s.body) + 
+				2 + thisModule.countStatementsRecursive(s.body) + 
 				s.catchClauses->collect(cc | thisModule.countStatementsRecursive(cc.body) +
 				if cc.body.statements->size() = 0
 				then --Empty catch clause
-					1
+					0
 				else --Non-empty catch clause
-					2
+					1
 				endif
 				)->sum()
 			else
 			-- Switch
 			if s.oclIsTypeOf(Java!SwitchStatement)
 			then
-				1 + thisModule.countStatementsRecursive(s)
+				2 + thisModule.countStatementsRecursive(s)
 			else
 				1
 			endif

@@ -1,87 +1,546 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:metrics="http://www.example.org/metrics">
-  <metrics:File LOC="67" name="ClientController.java"/>
-  <metrics:File LOC="2" name="ServerController.java"/>
-  <metrics:File LOC="2" name="Event.java"/>
-  <metrics:File LOC="2" name="Board.java"/>
-  <metrics:File LOC="2" name="Mark.java"/>
-  <metrics:File LOC="2" name="Server.java"/>
-  <metrics:File LOC="2" name="Game.java"/>
-  <metrics:File LOC="2" name="ClientHandler.java"/>
-  <metrics:File LOC="2" name="Protocol.java"/>
-  <metrics:File LOC="2" name="Commander.java"/>
-  <metrics:File LOC="2" name="Client.java"/>
-  <metrics:File LOC="2" name="ComputerPlayerThread.java"/>
-  <metrics:File LOC="2" name="HumanPlayer.java"/>
-  <metrics:File LOC="2" name="Player.java"/>
-  <metrics:File LOC="2" name="ComputerPlayer.java"/>
-  <metrics:File LOC="2" name="GameRequestList.java"/>
-  <metrics:File LOC="2" name="ChallengeRequestList.java"/>
-  <metrics:File LOC="2" name="SmartStrategy.java"/>
-  <metrics:File LOC="2" name="Strategy.java"/>
-  <metrics:File LOC="2" name="n00bStrategy.java"/>
-  <metrics:File LOC="2" name="BoardTest.java"/>
-  <metrics:File LOC="2" name="ChallengeRequestListTest.java"/>
-  <metrics:File LOC="2" name="GameTest.java"/>
-  <metrics:File LOC="2" name="NetworkTestCase.java"/>
-  <metrics:File LOC="2" name="EventTest.java"/>
-  <metrics:File LOC="2" name="GameRequestListTest.java"/>
-  <metrics:File LOC="2" name="MarkTest.java"/>
-  <metrics:File LOC="2" name="PlayerView.java"/>
-  <metrics:File LOC="2" name="ServerView.java"/>
-  <metrics:File LOC="2" name="View.java"/>
-  <metrics:File LOC="2" name="ConnectView.java"/>
-  <metrics:File LOC="2" name="GameView.java"/>
-  <metrics:File LOC="2" name="LobbyView.java"/>
-  <metrics:Class name="ClientController"/>
-  <metrics:Class name="ConnectThread"/>
-  <metrics:Class name="BackgroundLobbyTask"/>
-  <metrics:Class name="ServerController"/>
-  <metrics:Class name="Event"/>
-  <metrics:Class name="Board"/>
+  <metrics:File LOC="193" name="ClientController.java">
+    <class name="ClientController">
+      <attributes name="view"/>
+      <attributes name="client"/>
+      <attributes name="lastChosenTile"/>
+      <attributes name="strength"/>
+      <attributes name="user"/>
+      <attributes name="timer"/>
+      <attributes name="ai"/>
+      <methods name="main"/>
+      <methods name="keyReleased"/>
+      <methods name="actionPerformed"/>
+      <methods name="requestHint"/>
+      <methods name="changeToLobby"/>
+      <methods name="changeToGame"/>
+      <methods name="connect"/>
+      <methods name="requestList"/>
+      <methods name="isSupported"/>
+      <methods name="getBoard"/>
+      <methods name="answerChallenge"/>
+      <methods name="doMove"/>
+      <methods name="doTurn"/>
+      <methods name="update"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="41" name="ServerController.java">
+    <class name="ServerController">
+      <attributes name="view"/>
+      <attributes name="server"/>
+      <methods name="main"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="47" name="Event.java">
+    <class name="Event">
+      <attributes name="GAME_STARTED"/>
+      <attributes name="CHOOSE_MOVE"/>
+      <attributes name="CHOOSE_TURN"/>
+      <attributes name="MOVE_UPDATED"/>
+      <attributes name="TURN_UPDATED"/>
+      <attributes name="GAME_FINISHED"/>
+      <attributes name="CHAT_MESSAGE_RECEIVED"/>
+      <attributes name="PLAYER_LIST_RECEIVED"/>
+      <attributes name="INVITE_RECEIVED"/>
+      <attributes name="CHALLENGE_DECLINED"/>
+      <attributes name="ERROR_RECEIVED"/>
+      <attributes name="NAME_REFUSED"/>
+      <attributes name="CLIENT_JOINED"/>
+      <attributes name="SERVER_SHUTDOWN"/>
+      <attributes name="MOVE_HINT_GIVEN"/>
+      <attributes name="TURN_HINT_GIVEN"/>
+      <attributes name="SERVER_STARTED"/>
+      <attributes name="CLIENT_NOT_ACCEPTED"/>
+      <attributes name="LOG_MESSAGE"/>
+      <attributes name="BOARD_RESETTED"/>
+      <attributes name="MOVE_PLACED"/>
+      <attributes name="TILE_ROTATED"/>
+      <attributes name="code"/>
+      <attributes name="args"/>
+      <methods name="getCode"/>
+      <methods name="getArg"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="204" name="Board.java">
+    <class name="Board">
+      <attributes name="DIM"/>
+      <attributes name="BLOCK_DIM"/>
+      <attributes name="fields"/>
+      <methods name="reset"/>
+      <methods name="isFull"/>
+      <methods name="taken"/>
+      <methods name="taken"/>
+      <methods name="field"/>
+      <methods name="field"/>
+      <methods name="index"/>
+      <methods name="mark"/>
+      <methods name="mark"/>
+      <methods name="getWinners"/>
+      <methods name="hasWinner"/>
+      <methods name="isWinner"/>
+      <methods name="rotate"/>
+      <methods name="rotate"/>
+      <methods name="toString"/>
+      <methods name="toString"/>
+      <methods name="equals"/>
+      <methods name="getTakenFields"/>
+      <methods name="deepCopy"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="24" name="Mark.java">
+    <class name="Mark">
+      <attributes name="GREEN"/>
+      <attributes name="RED"/>
+      <attributes name="BLUE"/>
+      <attributes name="YELLOW"/>
+      <attributes name="EMPTY"/>
+      <attributes name="color"/>
+      <attributes name="colorCode"/>
+      <methods name="getColor"/>
+      <methods name="getColorCode"/>
+      <methods name="toString"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="79" name="Server.java">
+    <class name="Server">
+      <attributes name="NAME"/>
+      <attributes name="threads"/>
+      <attributes name="serverSocket"/>
+      <methods name="listen"/>
+      <methods name="run"/>
+      <methods name="log"/>
+      <methods name="chat"/>
+      <methods name="addHandler"/>
+      <methods name="removeHandler"/>
+      <methods name="buildPlayerList"/>
+      <methods name="getClientHandlerByName"/>
+      <methods name="isTaken"/>
+      <methods name="shutdown"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="175" name="Game.java">
+    <class name="Game">
+      <attributes name="MIN_PLAYERS"/>
+      <attributes name="MAX_PLAYERS"/>
+      <attributes name="gameRequestList"/>
+      <attributes name="challengeRequestList"/>
+      <attributes name="board"/>
+      <attributes name="players"/>
+      <attributes name="marks"/>
+      <attributes name="turn"/>
+      <attributes name="state"/>
+      <methods name="act"/>
+      <methods name="placeMark"/>
+      <methods name="doTurn"/>
+      <methods name="getPlayers"/>
+      <methods name="hasWinner"/>
+      <methods name="getWinners"/>
+      <methods name="resign"/>
+      <methods name="isOver"/>
+      <methods name="chat"/>
+      <methods name="request"/>
+      <methods name="buildPlayerList"/>
+      <methods name="buildPlayerList"/>
+      <methods name="challengePlayers"/>
+      <methods name="accept"/>
+      <methods name="decline"/>
+      <methods name="findChallengerByInvitee"/>
+      <methods name="revoke"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="222" name="ClientHandler.java">
+    <class name="ClientHandler">
+      <attributes name="SUPPORTS_CHAT"/>
+      <attributes name="SUPPORTS_CHALLENGE"/>
+      <attributes name="supportsChat"/>
+      <attributes name="supportsChallenge"/>
+      <attributes name="server"/>
+      <attributes name="sock"/>
+      <attributes name="name"/>
+      <attributes name="game"/>
+      <attributes name="commander"/>
+      <attributes name="in"/>
+      <attributes name="out"/>
+      <methods name="run"/>
+      <methods name="processCommand"/>
+      <methods name="setGame"/>
+      <methods name="getName"/>
+      <methods name="inGame"/>
+      <methods name="hasJoined"/>
+      <methods name="isSupported"/>
+      <methods name="handleJoin"/>
+      <methods name="handleRequestGame"/>
+      <methods name="handleMark"/>
+      <methods name="handleTurn"/>
+      <methods name="handleChat"/>
+      <methods name="handleListPlayers"/>
+      <methods name="handleChallengeResponse"/>
+      <methods name="shutdown"/>
+      <methods name="toString"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="34" name="Protocol.java"/>
+  <metrics:File LOC="41" name="Commander.java">
+    <class name="Commander">
+      <attributes name="out"/>
+      <attributes name="server"/>
+      <attributes name="sender"/>
+      <methods name="sendMessage"/>
+      <methods name="sendCommand"/>
+      <methods name="sendCommand"/>
+      <methods name="sendCommand"/>
+      <methods name="sendCommand"/>
+      <methods name="sendCommand"/>
+      <methods name="setSender"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="262" name="Client.java">
+    <class name="Client">
+      <attributes name="SUPPORTS_CHAT"/>
+      <attributes name="SUPPORTS_CHALLENGE"/>
+      <attributes name="STATE_MOVE"/>
+      <attributes name="STATE_TURN"/>
+      <attributes name="name"/>
+      <attributes name="sock"/>
+      <attributes name="board"/>
+      <attributes name="state"/>
+      <attributes name="useChat"/>
+      <attributes name="useChallenge"/>
+      <attributes name="players"/>
+      <attributes name="marks"/>
+      <attributes name="commander"/>
+      <attributes name="in"/>
+      <attributes name="out"/>
+      <methods name="join"/>
+      <methods name="run"/>
+      <methods name="processCommand"/>
+      <methods name="connect"/>
+      <methods name="handleSuccess"/>
+      <methods name="handleStart"/>
+      <methods name="handleChooseMove"/>
+      <methods name="handleChooseTurn"/>
+      <methods name="handleMoveChosen"/>
+      <methods name="handleTurnChosen"/>
+      <methods name="handleFinished"/>
+      <methods name="handleBroadcast"/>
+      <methods name="handlePlayerList"/>
+      <methods name="handleError"/>
+      <methods name="handleInvite"/>
+      <methods name="requestList"/>
+      <methods name="shutdown"/>
+      <methods name="challenge"/>
+      <methods name="requestGame"/>
+      <methods name="answerChallenge"/>
+      <methods name="getName"/>
+      <methods name="chat"/>
+      <methods name="doMove"/>
+      <methods name="doTurn"/>
+      <methods name="getBoard"/>
+      <methods name="isSupported"/>
+      <methods name="inMove"/>
+      <methods name="getPlayers"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="58" name="ComputerPlayerThread.java">
+    <class name="ComputerPlayerThread">
+      <attributes name="running"/>
+      <attributes name="calc"/>
+      <attributes name="chooseMove"/>
+      <attributes name="marks"/>
+      <attributes name="mark"/>
+      <attributes name="ai"/>
+      <attributes name="board"/>
+      <methods name="run"/>
+      <methods name="shutdown"/>
+      <methods name="giveHint"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="15" name="HumanPlayer.java">
+    <class name="HumanPlayer">
+      <methods name="chooseMove"/>
+      <methods name="chooseTurn"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="20" name="Player.java">
+    <class name="Player">
+      <attributes name="mark"/>
+      <attributes name="name"/>
+      <methods name="getName"/>
+      <methods name="getMark"/>
+      <methods name="chooseMove"/>
+      <methods name="chooseTurn"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="18" name="ComputerPlayer.java">
+    <class name="ComputerPlayer">
+      <attributes name="strategy"/>
+      <methods name="chooseMove"/>
+      <methods name="chooseTurn"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="36" name="GameRequestList.java">
+    <class name="GameRequestList">
+      <attributes name="requests"/>
+      <methods name="add"/>
+      <methods name="remove"/>
+      <methods name="remove"/>
+      <methods name="match"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="79" name="ChallengeRequestList.java">
+    <class name="ChallengeRequestList">
+      <attributes name="challenges"/>
+      <methods name="add"/>
+      <methods name="reply"/>
+      <methods name="accept"/>
+      <methods name="decline"/>
+      <methods name="remove"/>
+      <methods name="findByChallenger"/>
+      <methods name="findByChallengedPlayer"/>
+      <methods name="match"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="87" name="SmartStrategy.java">
+    <class name="SmartStrategy">
+      <attributes name="UNKNOWN"/>
+      <attributes name="LOSING_MOVE"/>
+      <attributes name="NEUTRAL_MOVE"/>
+      <attributes name="WINNING_MOVE"/>
+      <attributes name="MAX_RECURSIONS"/>
+      <attributes name="MAX_EXECUTION_RATIO"/>
+      <attributes name="recursions"/>
+      <attributes name="executionRatio"/>
+      <methods name="chooseMove"/>
+      <methods name="findBestMove"/>
+      <methods name="chooseTurn"/>
+      <methods name="findBestTurn"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="8" name="Strategy.java"/>
+  <metrics:File LOC="19" name="n00bStrategy.java">
+    <class name="n00bStrategy">
+      <attributes name="RANDOM"/>
+      <methods name="chooseMove"/>
+      <methods name="chooseTurn"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="149" name="BoardTest.java">
+    <class name="BoardTest">
+      <attributes name="board"/>
+      <methods name="setUp"/>
+      <methods name="tearDown"/>
+      <methods name="testCreate"/>
+      <methods name="testFull"/>
+      <methods name="testRemoveMark"/>
+      <methods name="testEquality"/>
+      <methods name="testDeepCopy"/>
+      <methods name="testMark"/>
+      <methods name="testWinner"/>
+      <methods name="testRotate"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="62" name="ChallengeRequestListTest.java">
+    <class name="ChallengeRequestListTest">
+      <attributes name="ch1"/>
+      <attributes name="opponents"/>
+      <attributes name="crl"/>
+      <methods name="setUp"/>
+      <methods name="testAdd"/>
+      <methods name="testfindChallenge"/>
+      <methods name="testMatch"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="19" name="GameTest.java">
+    <class name="GameTest">
+      <attributes name="game"/>
+      <methods name="setUp"/>
+      <methods name="tearDown"/>
+      <methods name="testCreate"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="30" name="NetworkTestCase.java">
+    <class name="NetworkTestCase">
+      <attributes name="HOST"/>
+      <attributes name="PORT"/>
+      <attributes name="server"/>
+      <attributes name="socket"/>
+      <methods name="setUp"/>
+      <methods name="tearDown"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="17" name="EventTest.java">
+    <class name="EventTest">
+      <methods name="setUp"/>
+      <methods name="tearDown"/>
+      <methods name="testCreate"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="39" name="GameRequestListTest.java">
+    <class name="GameRequestListTest">
+      <attributes name="ch1"/>
+      <attributes name="grl"/>
+      <methods name="setUp"/>
+      <methods name="testMatch"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="16" name="MarkTest.java">
+    <class name="MarkTest">
+      <methods name="setUp"/>
+      <methods name="tearDown"/>
+      <methods name="testCreate"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="91" name="PlayerView.java">
+    <class name="PlayerView">
+      <attributes name="chatMessage"/>
+      <attributes name="userJList"/>
+      <attributes name="userList"/>
+      <attributes name="controls"/>
+      <attributes name="scrollLog"/>
+      <attributes name="log"/>
+      <methods name="addMessage"/>
+      <methods name="getChatMessage"/>
+      <methods name="clearChat"/>
+      <methods name="setPlayerList"/>
+      <methods name="update"/>
+      <methods name="setup"/>
+      <methods name="hideChat"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="36" name="ServerView.java">
+    <class name="ServerView">
+      <methods name="update"/>
+      <methods name="addMessage"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="37" name="View.java">
+    <class name="View">
+      <attributes name="status"/>
+      <attributes name="controller"/>
+      <methods name="addMessage"/>
+      <methods name="setStatus"/>
+      <methods name="update"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="91" name="ConnectView.java">
+    <class name="ConnectView">
+      <attributes name="connect"/>
+      <attributes name="address"/>
+      <attributes name="port"/>
+      <attributes name="name"/>
+      <methods name="buildView"/>
+      <methods name="getAddress"/>
+      <methods name="getPort"/>
+      <methods name="getName"/>
+      <methods name="setConnectEnabled"/>
+      <methods name="addMessage"/>
+      <methods name="update"/>
+      <methods name="setAllEnabled"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="280" name="GameView.java">
+    <class name="GameView">
+      <attributes name="fields"/>
+      <attributes name="tiles"/>
+      <attributes name="controller"/>
+      <attributes name="status"/>
+      <attributes name="turnLeft"/>
+      <attributes name="turnRight"/>
+      <attributes name="hint"/>
+      <attributes name="user"/>
+      <attributes name="slider"/>
+      <attributes name="TILE_DIM"/>
+      <attributes name="ID"/>
+      <attributes name="ID_FIELD"/>
+      <attributes name="ID_TILE"/>
+      <attributes name="ID_TURNLEFT"/>
+      <attributes name="ID_TURNRIGHT"/>
+      <attributes name="ID_STRENGTH"/>
+      <attributes name="ID_HINT"/>
+      <methods name="buildView"/>
+      <methods name="setFieldColor"/>
+      <methods name="setStatus"/>
+      <methods name="getStrength"/>
+      <methods name="setActiveTile"/>
+      <methods name="enableMarkChoser"/>
+      <methods name="enableTileChoser"/>
+      <methods name="enableTurnChoser"/>
+      <methods name="resetAndDisableAll"/>
+      <methods name="setHintEnabled"/>
+      <methods name="setup"/>
+      <methods name="setTileColor"/>
+      <methods name="setDirColor"/>
+      <methods name="update"/>
+    </class>
+  </metrics:File>
+  <metrics:File LOC="109" name="LobbyView.java">
+    <class name="LobbyView">
+      <attributes name="controller"/>
+      <attributes name="sendChallenge"/>
+      <attributes name="requests"/>
+      <attributes name="aiplayer"/>
+      <methods name="buildView"/>
+      <methods name="getSelectedPlayers"/>
+      <methods name="setAIEnabled"/>
+      <methods name="hideChallenge"/>
+      <methods name="getAmountOfPlayers"/>
+      <methods name="setup"/>
+      <methods name="update"/>
+    </class>
+  </metrics:File>
+  <metrics:Class name="ConnectThread">
+    <attributes name="view"/>
+    <methods name="run"/>
+  </metrics:Class>
+  <metrics:Class name="BackgroundLobbyTask">
+    <methods name="run"/>
+  </metrics:Class>
   <metrics:Class name="IllegalMoveException"/>
-  <metrics:Class name="Mark"/>
-  <metrics:Class name="Server"/>
-  <metrics:Class name="Game"/>
   <metrics:Class name="InvalidPlayerCountException"/>
-  <metrics:Class name="ClientHandler"/>
-  <metrics:Class name="Commander"/>
-  <metrics:Class name="Client"/>
-  <metrics:Class name="ComputerPlayerThread"/>
-  <metrics:Class name="HumanPlayer"/>
-  <metrics:Class name="Player"/>
-  <metrics:Class name="ComputerPlayer"/>
-  <metrics:Class name="GameRequestList"/>
-  <metrics:Class name="ChallengeRequestList"/>
-  <metrics:Class name="SmartStrategy"/>
-  <metrics:Class name="n00bStrategy"/>
-  <metrics:Class name="BoardTest"/>
-  <metrics:Class name="ChallengeRequestListTest"/>
-  <metrics:Class name="GameTest"/>
-  <metrics:Class name="NetworkTestCase"/>
-  <metrics:Class name="EventTest"/>
-  <metrics:Class name="GameRequestListTest"/>
-  <metrics:Class name="MarkTest"/>
-  <metrics:Class name="PlayerView"/>
-  <metrics:Class name="ServerView"/>
-  <metrics:Class name="View"/>
-  <metrics:Class name="ConnectView"/>
-  <metrics:Class name="GameView"/>
-  <metrics:Class name="LobbyView"/>
-  <metrics:Class name="Color"/>
-  <metrics:Class name="Container"/>
-  <metrics:Class name="Component"/>
+  <metrics:Class name="Color">
+    <attributes name="GREEN"/>
+    <attributes name="RED"/>
+    <attributes name="BLUE"/>
+    <attributes name="YELLOW"/>
+    <attributes name="WHITE"/>
+  </metrics:Class>
+  <metrics:Class name="Container">
+    <methods name="setLayout"/>
+    <methods name="add"/>
+    <methods name="add"/>
+  </metrics:Class>
+  <metrics:Class name="Component">
+    <methods name="addKeyListener"/>
+  </metrics:Class>
   <metrics:Class name="AWTEvent"/>
-  <metrics:Class name="BorderLayout"/>
+  <metrics:Class name="BorderLayout">
+    <attributes name="NORTH"/>
+    <attributes name="CENTER"/>
+    <attributes name="SOUTH"/>
+    <attributes name="EAST"/>
+    <attributes name="WEST"/>
+  </metrics:Class>
   <metrics:Class name="Rectangle"/>
-  <metrics:Class name="Window"/>
-  <metrics:Class name="Toolkit"/>
+  <metrics:Class name="Window">
+    <methods name="dispose"/>
+    <methods name="setVisible"/>
+    <methods name="setSize"/>
+    <methods name="getBackground"/>
+  </metrics:Class>
+  <metrics:Class name="Toolkit">
+    <methods name="getDefaultToolkit"/>
+    <methods name="getImage"/>
+  </metrics:Class>
   <metrics:Class name="Frame"/>
   <metrics:Class name="Image"/>
   <metrics:Class name="GridLayout"/>
   <metrics:Class name="Dimension"/>
   <metrics:Class name="KeyAdapter"/>
-  <metrics:Class name="KeyEvent"/>
+  <metrics:Class name="KeyEvent">
+    <attributes name="VK_ENTER"/>
+    <methods name="getKeyCode"/>
+  </metrics:Class>
   <metrics:Class name="InputEvent"/>
   <metrics:Class name="ComponentEvent"/>
   <metrics:Class name="ActionEvent"/>
@@ -89,78 +548,274 @@
   <metrics:Class name="RectangularShape"/>
   <metrics:Class name="Dimension2D"/>
   <metrics:Class name="IOException"/>
-  <metrics:Class name="PrintStream"/>
+  <metrics:Class name="PrintStream">
+    <methods name="println"/>
+    <methods name="println"/>
+  </metrics:Class>
   <metrics:Class name="FilterOutputStream"/>
   <metrics:Class name="OutputStream"/>
-  <metrics:Class name="BufferedReader"/>
+  <metrics:Class name="BufferedReader">
+    <methods name="readLine"/>
+  </metrics:Class>
   <metrics:Class name="Reader"/>
-  <metrics:Class name="BufferedWriter"/>
-  <metrics:Class name="Writer"/>
+  <metrics:Class name="BufferedWriter">
+    <methods name="flush"/>
+  </metrics:Class>
+  <metrics:Class name="Writer">
+    <methods name="write"/>
+  </metrics:Class>
   <metrics:Class name="InputStreamReader"/>
   <metrics:Class name="InputStream"/>
   <metrics:Class name="OutputStreamWriter"/>
   <metrics:Class name="Exception"/>
-  <metrics:Class name="Throwable"/>
-  <metrics:Class name="String"/>
-  <metrics:Class name="Object"/>
-  <metrics:Class name="Integer"/>
+  <metrics:Class name="Throwable">
+    <methods name="getMessage"/>
+  </metrics:Class>
+  <metrics:Class name="String">
+    <methods name="equals"/>
+    <methods name="format"/>
+    <methods name="startsWith"/>
+    <methods name="substring"/>
+    <methods name="replace"/>
+    <methods name="charAt"/>
+    <methods name="trim"/>
+  </metrics:Class>
+  <metrics:Class name="Object">
+    <methods name="equals"/>
+    <methods name="clone"/>
+    <methods name="toString"/>
+    <methods name="wait"/>
+    <methods name="notify"/>
+  </metrics:Class>
+  <metrics:Class name="Integer">
+    <methods name="parseInt"/>
+    <methods name="equals"/>
+  </metrics:Class>
   <metrics:Class name="Number"/>
-  <metrics:Class name="Thread"/>
+  <metrics:Class name="Thread">
+    <methods name="start"/>
+  </metrics:Class>
   <metrics:Class name="NumberFormatException"/>
   <metrics:Class name="IllegalArgumentException"/>
   <metrics:Class name="RuntimeException"/>
-  <metrics:Class name="System"/>
+  <metrics:Class name="System">
+    <attributes name="out"/>
+    <methods name="exit"/>
+  </metrics:Class>
   <metrics:Class name="IndexOutOfBoundsException"/>
   <metrics:Class name="ArrayIndexOutOfBoundsException"/>
-  <metrics:Class name="Character"/>
+  <metrics:Class name="Character">
+    <methods name="toString"/>
+    <methods name="equals"/>
+  </metrics:Class>
   <metrics:Class name="InterruptedException"/>
   <metrics:Class name="Boolean"/>
-  <metrics:Class name="Math"/>
+  <metrics:Class name="Math">
+    <methods name="round"/>
+    <methods name="random"/>
+  </metrics:Class>
   <metrics:Class name="UnknownHostException"/>
-  <metrics:Class name="ServerSocket"/>
-  <metrics:Class name="InetAddress"/>
-  <metrics:Class name="Socket"/>
-  <metrics:Class name="Observable"/>
-  <metrics:Class name="Timer"/>
+  <metrics:Class name="ServerSocket">
+    <methods name="getLocalPort"/>
+    <methods name="accept"/>
+    <methods name="close"/>
+  </metrics:Class>
+  <metrics:Class name="InetAddress">
+    <methods name="getLocalHost"/>
+    <methods name="toString"/>
+    <methods name="getByName"/>
+  </metrics:Class>
+  <metrics:Class name="Socket">
+    <methods name="getInputStream"/>
+    <methods name="getOutputStream"/>
+    <methods name="shutdownInput"/>
+    <methods name="shutdownOutput"/>
+    <methods name="close"/>
+  </metrics:Class>
+  <metrics:Class name="Observable">
+    <methods name="deleteObserver"/>
+    <methods name="addObserver"/>
+    <methods name="setChanged"/>
+    <methods name="notifyObservers"/>
+  </metrics:Class>
+  <metrics:Class name="Timer">
+    <methods name="schedule"/>
+    <methods name="cancel"/>
+  </metrics:Class>
   <metrics:Class name="TimerTask"/>
-  <metrics:Class name="EventObject"/>
+  <metrics:Class name="EventObject">
+    <methods name="getSource"/>
+  </metrics:Class>
   <metrics:Class name="HashSet"/>
   <metrics:Class name="AbstractSet"/>
   <metrics:Class name="AbstractCollection"/>
-  <metrics:Class name="ArrayList"/>
+  <metrics:Class name="ArrayList">
+    <methods name="add"/>
+    <methods name="get"/>
+    <methods name="size"/>
+  </metrics:Class>
   <metrics:Class name="AbstractList"/>
-  <metrics:Class name="Collections"/>
-  <metrics:Class name="Arrays"/>
-  <metrics:Class name="Scanner"/>
+  <metrics:Class name="Collections">
+    <methods name="shuffle"/>
+  </metrics:Class>
+  <metrics:Class name="Arrays">
+    <methods name="asList"/>
+  </metrics:Class>
+  <metrics:Class name="Scanner">
+    <methods name="next"/>
+    <methods name="nextInt"/>
+    <methods name="hasNext"/>
+    <methods name="nextLine"/>
+  </metrics:Class>
   <metrics:Class name="NoSuchElementException"/>
   <metrics:Class name="TreeMap"/>
   <metrics:Class name="AbstractMap"/>
   <metrics:Class name="HashMap"/>
-  <metrics:Class name="Random"/>
-  <metrics:Class name="Pattern"/>
-  <metrics:Class name="Matcher"/>
+  <metrics:Class name="Random">
+    <methods name="nextInt"/>
+  </metrics:Class>
+  <metrics:Class name="Pattern">
+    <methods name="compile"/>
+    <methods name="matcher"/>
+  </metrics:Class>
+  <metrics:Class name="Matcher">
+    <methods name="find"/>
+    <methods name="group"/>
+  </metrics:Class>
   <metrics:Class name="JButton"/>
-  <metrics:Class name="AbstractButton"/>
-  <metrics:Class name="JComponent"/>
+  <metrics:Class name="AbstractButton">
+    <methods name="isSelected"/>
+    <methods name="setEnabled"/>
+    <methods name="addActionListener"/>
+    <methods name="setFocusPainted"/>
+  </metrics:Class>
+  <metrics:Class name="JComponent">
+    <methods name="getClientProperty"/>
+    <methods name="setVisible"/>
+    <methods name="setBorder"/>
+    <methods name="setEnabled"/>
+    <methods name="setOpaque"/>
+    <methods name="putClientProperty"/>
+    <methods name="setPreferredSize"/>
+    <methods name="setBackground"/>
+  </metrics:Class>
   <metrics:Class name="TransferHandler"/>
   <metrics:Class name="JCheckBox"/>
   <metrics:Class name="JToggleButton"/>
   <metrics:Class name="DefaultListModel"/>
   <metrics:Class name="AbstractListModel"/>
-  <metrics:Class name="JLabel"/>
-  <metrics:Class name="JList"/>
+  <metrics:Class name="JLabel">
+    <methods name="setText"/>
+  </metrics:Class>
+  <metrics:Class name="JList">
+    <methods name="setListData"/>
+    <methods name="getSelectedValues"/>
+  </metrics:Class>
   <metrics:Class name="JPanel"/>
-  <metrics:Class name="JScrollPane"/>
-  <metrics:Class name="JTextArea"/>
+  <metrics:Class name="JScrollPane">
+    <methods name="setHorizontalScrollBarPolicy"/>
+  </metrics:Class>
+  <metrics:Class name="JTextArea">
+    <methods name="setLineWrap"/>
+  </metrics:Class>
   <metrics:Class name="JTextField"/>
-  <metrics:Class name="JFrame"/>
-  <metrics:Class name="JOptionPane"/>
-  <metrics:Class name="JSlider"/>
-  <metrics:Class name="JComboBox"/>
-  <metrics:Class name="JTextComponent"/>
-  <metrics:Class name="DefaultCaret"/>
+  <metrics:Class name="JFrame">
+    <attributes name="EXIT_ON_CLOSE"/>
+    <methods name="setIconImage"/>
+    <methods name="setDefaultCloseOperation"/>
+  </metrics:Class>
+  <metrics:Class name="JOptionPane">
+    <attributes name="INFORMATION_MESSAGE"/>
+    <attributes name="YES_NO_OPTION"/>
+    <attributes name="QUESTION_MESSAGE"/>
+    <methods name="showMessageDialog"/>
+    <methods name="showOptionDialog"/>
+  </metrics:Class>
+  <metrics:Class name="JSlider">
+    <methods name="getValue"/>
+    <methods name="getMaximum"/>
+  </metrics:Class>
+  <metrics:Class name="JComboBox">
+    <methods name="getSelectedItem"/>
+  </metrics:Class>
+  <metrics:Class name="JTextComponent">
+    <methods name="setEditable"/>
+    <methods name="getCaret"/>
+    <methods name="setText"/>
+    <methods name="getText"/>
+  </metrics:Class>
+  <metrics:Class name="DefaultCaret">
+    <attributes name="ALWAYS_UPDATE"/>
+    <methods name="setUpdatePolicy"/>
+  </metrics:Class>
   <metrics:Class name="EmptyBorder"/>
   <metrics:Class name="AbstractBorder"/>
   <metrics:Class name="TestCase"/>
-  <metrics:Class name="Assert"/>
+  <metrics:Class name="Assert">
+    <methods name="assertFalse"/>
+    <methods name="assertTrue"/>
+    <methods name="assertEquals"/>
+    <methods name="fail"/>
+    <methods name="assertEquals"/>
+    <methods name="assertEquals"/>
+    <methods name="assertNull"/>
+    <methods name="fail"/>
+    <methods name="assertEquals"/>
+  </metrics:Class>
+  <metrics:Method name="processCommand"/>
+  <metrics:Method name="isSupported"/>
+  <metrics:Method name="chooseMove"/>
+  <metrics:Method name="chooseTurn"/>
+  <metrics:Method name="add"/>
+  <metrics:Method name="size"/>
+  <metrics:Method name="contains"/>
+  <metrics:Method name="iterator"/>
+  <metrics:Method name="add"/>
+  <metrics:Method name="remove"/>
+  <metrics:Method name="size"/>
+  <metrics:Method name="get"/>
+  <metrics:Method name="indexOf"/>
+  <metrics:Method name="contains"/>
+  <metrics:Method name="toArray"/>
+  <metrics:Method name="hasNext"/>
+  <metrics:Method name="next"/>
+  <metrics:Method name="put"/>
+  <metrics:Method name="get"/>
+  <metrics:Method name="values"/>
+  <metrics:Method name="containsKey"/>
+  <metrics:Method name="remove"/>
+  <metrics:Method name="getValue"/>
+  <metrics:Method name="getKey"/>
+  <metrics:Method name="entrySet"/>
+  <metrics:Method name="keySet"/>
+  <metrics:Attribute name="JOIN"/>
+  <metrics:Attribute name="REQUEST_GAME"/>
+  <metrics:Attribute name="MARK"/>
+  <metrics:Attribute name="TURN"/>
+  <metrics:Attribute name="CHAT"/>
+  <metrics:Attribute name="LIST_PLAYERS"/>
+  <metrics:Attribute name="CHALLENGE_RESPONSE"/>
+  <metrics:Attribute name="SUCCESS"/>
+  <metrics:Attribute name="START"/>
+  <metrics:Attribute name="CHOOSE_MOVE"/>
+  <metrics:Attribute name="CHOOSE_TURN"/>
+  <metrics:Attribute name="MOVE_CHOSEN"/>
+  <metrics:Attribute name="TURN_CHOSEN"/>
+  <metrics:Attribute name="FINISHED"/>
+  <metrics:Attribute name="BROADCAST"/>
+  <metrics:Attribute name="PLAYER_LIST"/>
+  <metrics:Attribute name="INVITE"/>
+  <metrics:Attribute name="ERROR"/>
+  <metrics:Attribute name="ERROR_MALFORMED"/>
+  <metrics:Attribute name="ERROR_NAME_IN_USE"/>
+  <metrics:Attribute name="ERROR_INVALID_MOVE"/>
+  <metrics:Attribute name="ERROR_DECLINED"/>
+  <metrics:Attribute name="FALSE"/>
+  <metrics:Attribute name="TRUE"/>
+  <metrics:Attribute name="COUNTER_CLOCKWISE"/>
+  <metrics:Attribute name="CLOCKWISE"/>
+  <metrics:Attribute name="NEWLINE"/>
+  <metrics:Attribute name="n00b"/>
+  <metrics:Attribute name="GHOST"/>
+  <metrics:Attribute name="HORIZONTAL_SCROLLBAR_NEVER"/>
 </xmi:XMI>
